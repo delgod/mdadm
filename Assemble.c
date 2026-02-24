@@ -1470,7 +1470,7 @@ try_again:
 			goto out;
 
 		/* array already exists. */
-		if (pre_exist->array.level != UnSet) {
+		if (pre_exist->array.level != UnSet && !c->force) {
 			pr_err("Found some drive for an array that is already active: %s\n",
 			       mp->path);
 			pr_err("giving up.\n");
