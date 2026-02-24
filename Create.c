@@ -1316,8 +1316,8 @@ int Create(struct supertype *st, struct mddev_ident *ident, int subdevs,
 	} else {
 		pr_err("not starting array - not enough devices.\n");
 	}
-	close(mdfd);
 	udev_unblock();
+	close(mdfd);
 	sysfs_uevent(&info, "change");
 	dev_policy_free(custom_pols);
 

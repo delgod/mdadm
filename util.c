@@ -972,8 +972,7 @@ static bool is_devname_numbered(const char *devname, const char *pref, const int
 	if (parse_num(&val, devname + pref_len) != 0)
 		return false;
 
-	/* Allow any number that represents a valid minor number */
-	if (val >= (1 << 20))
+	if (val > 1024)
 		return false;
 
 	return true;
@@ -2456,7 +2455,7 @@ int zero_disk_range(int fd, unsigned long long sector, size_t count)
 		return -1;
 	}
 
-	if (lseek(fd, sector * 512, SEEK_SET) < 0) {
+	if (lseek64(fd, sector * 512, SEEK_SET) < 0) {
 		ret = -errno;
 		pr_err("Failed to seek offset for zeroing\n");
 		goto out;
